@@ -23,6 +23,8 @@ Este banco de dados foi desenvolvido do zero com fins educacionais e de portfól
 | `financeiro`   | Receitas, despesas e balanço da empresa                |
 | `motoristas`   | Cadastro dos motoristas responsáveis pelas viagens     |
 | `cliente`      | Cadastro dos clientes que solicitam as viagens        |
+| `receita`      |  Receitas vindas de viagens ou de origem externa        |
+| `despesa`      |  Despesas categorizadas da empresa  
 
 > As tabelas serão adicionadas progressivamente conforme o projeto evolui.
 
@@ -87,7 +89,53 @@ Armazena os registros de viagens realizadas, com referência ao motorista respon
 | `id_motorista`  | INT (FK)       | Referência ao motorista responsável (`motorista.id_motorista`) |
 | `id_cliente`    | INT (FK)      | Referência ao cliente solicitante (`cliente.id_cliente`)      |
 
+---
 
+##  Tabela: `receita`
+
+Armazena as receitas da empresa, geradas automaticamente por viagens ou inseridas manualmente como receitas externas.
+
+### Estrutura
+
+| Coluna       | Tipo          | Descrição                                                     |
+|--------------|---------------|---------------------------------------------------------------|
+| `id_receita` | INT (PK, AI)  | Identificador único da receita                                |
+| `id_viagem`  | INT (FK)      | Referência à viagem de origem — `NULL` se for receita externa |
+| `descricao`  | VARCHAR(100)  | Descrição da origem — preenchido apenas para receitas externas|
+| `valor`      | DECIMAL(10,2) | Valor da receita                                              |
+| `data`       | DATE          | Data do registro                                              |
+
+>  As receitas de viagem são registradas **automaticamente**
+
+---
+
+##  Tabela: `despesa`
+
+Armazena as despesas categorizadas da empresa.
+
+### Estrutura
+
+| Coluna       | Tipo          | Descrição                                                           |
+|--------------|---------------|---------------------------------------------------------------------|
+| `id_despesa` | INT (PK, AI)  | Identificador único da despesa                                      |
+| `categoria`  | ENUM          | Categoria: `combustivel`, `manutencao`, `salario`, `pedagio`, `outros` |
+| `descricao`  | VARCHAR(100)  | Descrição detalhada da despesa                                      |
+| `valor`      | DECIMAL(10,2) | Valor da despesa                                                    |
+| `data`       | DATE          | Data do registro                                                    |
+| `id_viagem`  | INT (FK)      | Referência à viagem relacionada — `NULL` se não houver vínculo      |
+
+---
+
+##  Trigger: `trg_receita_viagem`
+
+Ao inserir uma nova viagem na tabela `viagem`, a trigger registra automaticamente a receita correspondente na tabela `receita`, sem necessidade de inserção manual.
+```sql
+CREATE TRIGGER trg_receita_viagem
+AFTER INSERT ON viagem
+FOR EACH ROW
+INSERT INTO receita (id_viagem, valor, data)
+VALUES (NEW.id_viagem, NEW.valor, CURDATE());
+```
 
 ---
 
@@ -125,9 +173,12 @@ Armazena os registros de viagens realizadas, com referência ao motorista respon
 - Criação de banco de dados (`CREATE DATABASE`)
 - Definição de tabelas com tipos de dados e constraints (`PRIMARY KEY`, `NOT NULL`, `AUTO_INCREMENT`)
 - Relacionamento entre tabelas (`FOREIGN KEY`, `REFERENCES`)
+- Tipo enumerado (`ENUM`)
 - Inserção de registros (`INSERT INTO`)
 - Consultas e filtros (`SELECT`, `WHERE`, `ORDER BY`)
 - Junção de tabelas (`JOIN`)
+- Agregações (`SUM`, `GROUP BY`)
+- Automação com trigger (`CREATE TRIGGER`, `AFTER INSERT`)
 ---
 
 ##  Próximos Passos
