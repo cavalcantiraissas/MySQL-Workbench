@@ -16,6 +16,15 @@ id_motorista 		   INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 nome_motorista 		   VARCHAR(50) NOT NULL
 );
 
+-- Informações sobre o cliente
+CREATE TABLE cliente(
+id_cliente 			  INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+nome_cliente 		  VARCHAR(50) NOT NULL,
+telefone			  VARCHAR(20) NOT NULL,
+endereco 		      VARCHAR(100) NOT NULL,
+cpf  		          VARCHAR(14) NOT NULL
+);
+
 -- Informações sobre viagem
 CREATE TABLE viagem(
 id_viagem 			  INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -25,5 +34,10 @@ valor		  		  DECIMAL(10,2) NOT NULL,
 id_motorista 		  INT NOT NULL,
 
 CONSTRAINT fk_motorista FOREIGN KEY (id_motorista)
-REFERENCES motorista(id_motorista)
+REFERENCES motorista(id_motorista),
+
+id_cliente	  INT NOT NULL,
+
+CONSTRAINT fk_cliente FOREIGN KEY (id_cliente)
+REFERENCES cliente(id_cliente)
 ); 
