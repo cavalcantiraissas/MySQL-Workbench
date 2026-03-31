@@ -3,6 +3,12 @@ USE empresa_onibus;
 -- Todos os ônibus cadastrados
 SELECT * FROM onibus;
 
+-- Todos os motoristas cadastrados
+SELECT * FROM motorista;
+
+-- Todas as viagens cadastradass
+SELECT * FROM viagem;
+
 -- Ônibus com ar-condicionado
 SELECT * FROM onibus WHERE ar_condicionado = 'sim';
 
