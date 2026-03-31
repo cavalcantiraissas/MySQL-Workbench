@@ -9,6 +9,9 @@ SELECT * FROM motorista;
 -- Todas as viagens cadastradass
 SELECT * FROM viagem;
 
+-- Todos os clientes cadastrados
+SELECT * FROM cliente;
+
 -- Ônibus com ar-condicionado
 SELECT * FROM onibus WHERE ar_condicionado = 'sim';
 
