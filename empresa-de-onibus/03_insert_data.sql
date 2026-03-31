@@ -38,3 +38,20 @@ VALUES
 ('Brasília', 'Goiânia', 45.90, 5, 5),
 ('Rio de Janeiro', 'São Paulo', 115.00, 1, 2), 
 ('Campinas', 'Santos', 60.00, 2, 3);
+
+-- Inserção de receitas externas (não vinculadas a viagens)
+INSERT INTO receita (id_viagem, descricao, valor, data)
+VALUES
+    (NULL, 'Patrocínio empresa LogBR',         1500.00, '2024-01-15'),
+    (NULL, 'Aluguel de ônibus para evento',     800.00, '2024-01-22');
+
+-- Inserção de despesas
+INSERT INTO despesa (categoria, descricao, valor, data, id_viagem)
+VALUES
+    ('combustivel', 'Abastecimento viagem SP → RJ',         350.00, '2024-01-10', 1),
+    ('pedagio',     'Pedágio viagem SP → RJ',                45.00, '2024-01-10', 1),
+    ('combustivel', 'Abastecimento viagem BH → Vitória',    280.00, '2024-01-11', 2),
+    ('manutencao',  'Troca de pneus Marcopolo G7',          900.00, '2024-01-12', NULL),
+    ('salario',     'Salário Carlos Alberto Silva',         3500.00, '2024-01-31', NULL),
+    ('salario',     'Salário Ana Paula Oliveira',           3500.00, '2024-01-31', NULL),
+    ('outros',      'Material de limpeza dos veículos',      120.00, '2024-01-31', NULL);
