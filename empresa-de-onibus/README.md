@@ -20,8 +20,6 @@ Este banco de dados foi desenvolvido do zero com fins educacionais e de portfól
 |----------------|--------------------------------------------------------|
 | `onibus`       | Cadastro da frota com características de cada veículo  |
 | `viagens`      | Registros de viagens realizadas e programadas          |
-| `passageiros`  | Dados dos passageiros                                  |
-| `passagens`    | Relação entre passageiros e viagens                    |
 | `financeiro`   | Receitas, despesas e balanço da empresa                |
 | `motoristas`   | Cadastro dos motoristas responsáveis pelas viagens     |
 
