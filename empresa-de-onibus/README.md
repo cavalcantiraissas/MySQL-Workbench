@@ -42,16 +42,34 @@ Armazena as características físicas e de conforto de cada veículo da frota.
 | `som`                 | CHAR(3)       | Possui sistema de som? (`sim` / `nao`) |
 | `ar_condicionado`     | CHAR(3)       | Possui ar-condicionado? (`sim` / `nao`) |
 
-### Dados inseridos
+##  Tabela: `motorista`
 
-| id | Modelo           | Cadeiras | Banheiro | Som | Ar-condicionado |
-|----|------------------|----------|----------|-----|-----------------|
-| 1  | Marcopolo G7     | 46       | sim      | sim | sim             |
-| 2  | Volare W9        | 28       | nao      | nao | sim             |
-| 3  | Comil Campione   | 50       | nao      | sim | sim             |
-| 4  | Irizar i6        | 42       | sim      | sim | sim             |
-| 5  | Busscar El Buss  | 48       | sim      | nao | nao             |
-| 6  | Neobus Mega      | 36       | nao      | nao | nao             |
+Armazena o cadastro dos motoristas da empresa.
+
+### Estrutura
+
+| Coluna          | Tipo         | Descrição                        |
+|-----------------|--------------|----------------------------------|
+| `id_motorista`  | INT (PK, AI) | Identificador único do motorista |
+| `nome_motorista`| VARCHAR(50)  | Nome completo do motorista 
+
+---
+
+##  Tabela: `viagem`
+
+Armazena os registros de viagens realizadas, com referência ao motorista responsável.
+
+### Estrutura
+
+| Coluna          | Tipo           | Descrição                                            |
+|-----------------|----------------|------------------------------------------------------|
+| `id_viagem`     | INT (PK, AI)   | Identificador único da viagem                        |
+| `local_partida` | VARCHAR(20)    | Local de origem                                     |
+| `local_destino` | VARCHAR(20)    | Local de destino                                    |
+| `valor`         | DECIMAL(10,2)  | Valor da viagem                                    |
+| `id_motorista`  | INT (FK)       | Referência ao motorista responsável (`motorista.id_motorista`) |
+
+
 
 ---
 
@@ -71,16 +89,16 @@ Armazena as características físicas e de conforto de cada veículo da frota.
 
 2. **Abra o MySQL Workbench** e conecte-se à sua instância local.
 
-3. **Abra o arquivo** `empresa_onibus.sql` localizado nesta pasta.
+3. **Execute os arquivos na ordem abaixo**, abrindo cada um e pressionando `Cmd + Shift + Enter`:
 
-4. **Execute o script completo** com `Cmd + Shift + Enter` para criar o banco, as tabelas e inserir os dados.
+   | Ordem | Arquivo                  | Descrição                        |
+   |-------|--------------------------|----------------------------------|
+   | 1°    | `01_create_database.sql` | Cria o banco de dados            |
+   | 2°    | `02_create_tables.sql`   | Cria todas as tabelas            |
+   | 3°    | `03_insert_data.sql`     | Insere os dados fictícios        |
+   | 4°    | `04_queries.sql`         | Consultas para explorar os dados |
 
-5. Para explorar os dados, utilize queries como:
-```sql
-   SELECT * FROM onibus;
-   SELECT * FROM onibus WHERE ar_condicionado = 'sim';
-   SELECT modelo, quantidade_cadeiras FROM onibus ORDER BY quantidade_cadeiras DESC;
-```
+
 
 ---
 
@@ -88,19 +106,20 @@ Armazena as características físicas e de conforto de cada veículo da frota.
 
 - Criação de banco de dados (`CREATE DATABASE`)
 - Definição de tabelas com tipos de dados e constraints (`PRIMARY KEY`, `NOT NULL`, `AUTO_INCREMENT`)
+- Relacionamento entre tabelas (`FOREIGN KEY`, `REFERENCES`)
 - Inserção de registros (`INSERT INTO`)
 - Consultas e filtros (`SELECT`, `WHERE`, `ORDER BY`)
+- Junção de tabelas (`JOIN`)
 
 ---
 
-##  Próximos passos
+##  Próximos Passos
 
-- [ ] Criar tabela `motoristas`
-- [ ] Criar tabela `viagens`
-- [ ] Criar tabela `passageiros`
-- [ ] Criar tabela `passagens` (relação N:N)
+- [x] Criar tabela `onibus`
+- [x] Criar tabela `motorista`
+- [x] Criar tabela `viagem`
+- [x] Adicionar `FOREIGN KEY` entre `viagem` e `motorista`
 - [ ] Criar tabela `financeiro`
-- [ ] Adicionar `FOREIGN KEYS` entre as tabelas
 - [ ] Criar queries de análise e relatórios
 
 ---
