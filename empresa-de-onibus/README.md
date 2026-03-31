@@ -22,6 +22,7 @@ Este banco de dados foi desenvolvido do zero com fins educacionais e de portfól
 | `viagens`      | Registros de viagens realizadas e programadas          |
 | `financeiro`   | Receitas, despesas e balanço da empresa                |
 | `motoristas`   | Cadastro dos motoristas responsáveis pelas viagens     |
+| `cliente`      | Cadastro dos clientes que solicitam as viagens        |
 
 > As tabelas serão adicionadas progressivamente conforme o projeto evolui.
 
@@ -55,6 +56,22 @@ Armazena o cadastro dos motoristas da empresa.
 
 ---
 
+##  Tabela: `cliente`
+
+Armazena o cadastro dos clientes que solicitam as viagens.
+
+### Estrutura
+
+| Coluna         | Tipo          | Descrição                      |
+|----------------|---------------|--------------------------------|
+| `id_cliente`   | INT (PK, AI)  | Identificador único do cliente |
+| `nome_cliente` | VARCHAR(50)   | Nome completo do cliente       |
+| `telefone`     | VARCHAR(20)   | Número de telefone             |
+| `endereco`     | VARCHAR(100)  | Endereço completo              |
+| `cpf`          | VARCHAR(14)   | CPF no formato `000.000.000-00`|
+
+---
+
 ##  Tabela: `viagem`
 
 Armazena os registros de viagens realizadas, com referência ao motorista responsável.
@@ -68,6 +85,7 @@ Armazena os registros de viagens realizadas, com referência ao motorista respon
 | `local_destino` | VARCHAR(20)    | Local de destino                                    |
 | `valor`         | DECIMAL(10,2)  | Valor da viagem                                    |
 | `id_motorista`  | INT (FK)       | Referência ao motorista responsável (`motorista.id_motorista`) |
+| `id_cliente`    | INT (FK)      | Referência ao cliente solicitante (`cliente.id_cliente`)      |
 
 
 
@@ -110,7 +128,6 @@ Armazena os registros de viagens realizadas, com referência ao motorista respon
 - Inserção de registros (`INSERT INTO`)
 - Consultas e filtros (`SELECT`, `WHERE`, `ORDER BY`)
 - Junção de tabelas (`JOIN`)
-
 ---
 
 ##  Próximos Passos
